@@ -15,7 +15,6 @@ function fake_bin(string $s): string {
         # code...
         $arrayNumerico[$indice] = intval($s[$indice]);
         $indice++;
-
     }
 
     for ($i=0; $i < count($arrayNumerico); $i++) { 
