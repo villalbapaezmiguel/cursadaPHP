@@ -1,5 +1,5 @@
 <?php
-
+//Villalba Paez Miguel Antonio
 /**Aplicación Nº 2 (Mostrar fecha y estación)
 Obtenga la fecha actual del servidor (función date) y luego imprímala dentro de la página con
 distintos formatos (seleccione los formatos que más le guste). Además indicar que estación del
@@ -17,26 +17,27 @@ echo "Mes " . $fechaActual->format('m');
 $mes = intval($fechaActual->format('m'));
 
 switch ($mes) {
-    case 1: //enero
-    case 2: //febrero
-    case 3: //marzo
-        echo "Estamos en la en Verano";
+    case 1:
+    case 2:
+    case 12:
+        $estacion = 'Verano';
         break;
-    case 4: //abril
-    case 5: //mayo
-    case 6: //junio
-        echo "Estamos en la en Otoño";
+    case 3:
+    case 4:
+    case 5:
+        $estacion = 'Otoño';
         break;
-    case 7: //julio 
+    case 6:
+    case 7:
+    case 8:
+        $estacion = 'Invierno';
         break;
-    case 8: //agosto
-        break;
-    case 9: //septiembre
-        break;
-    case 10: //octubre
-        break;
-    case 11: //noviembre
-        break;
-    case 12: //diciembre
+    case 9:
+    case 10:
+    case 11:
+        $estacion = 'Primavera';
         break;
 }
+
+echo "Estacion $estacion";
+
