@@ -2,33 +2,30 @@
 /** */
 class Auto{
 
-    private $color;
-    private $precio;
-    private $marca;
+    //atributos: color , precio , marca y fecha
+    private $color ;
+    private $precio ;
+    private $marca ;
     private DateTime $fecha;
 
-    public function __construct($marca , $color , $precio = 0 , $fecha = 0)
+    public function __construct()
+    {
+        //obtenemos un array de los agumentos pasados por el contructor
+        $arrayParametros = func_get_args();
+
+        //obtenemos la cantidad de parametros pasados por el constructor
+        $cantidadParametros = func_num_args();
+
+        //
+
+    }
+
+    function __construct0($marca , $color)
     {
         $this->marca = $marca;
         $this->color = $color;
-        $this->precio = $precio;
-        $this->fecha = $fecha;
     }
 
-    public function GetPrecio() {
-        
-        return $this->precio;
-    }
-
-    public function SetPrecio($precio) {
-        $this->precio = $precio;
-    }
-
-
-    public function AgregarImpuestos($impuesto)
-    {
-        $nuevoImpuesto = $this->GetPrecio() + $impuesto;  
-    }
 
 
 
