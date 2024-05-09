@@ -1,4 +1,5 @@
 <?php 
+//Villalba Paez Miguel Antonio
     class Auto{
 
         public $_color ;
@@ -55,43 +56,25 @@
             return $exito;
         }
 
-        public function Add(Auto $objeto2)
+        public static function Add(Auto $_objeto1 ,Auto $_objeto2)
         {
             $_nuevoPrecio = 0.0;
-            if($this->Equals($objeto2) && $this->_color == $objeto2->_color)
+            if(($_objeto1->_marca == $_objeto2->_marca) &&
+            ($_objeto1->_color == $_objeto2->_color))
             {
-                if($this->_precio >= 0.0 && $this->_precio >= 0.0)
+                if($_objeto1->_precio >= 0.0 && $_objeto2->_precio >= 0.0)
                 {
-                    $_nuevoPrecio = $this->_precio + $objeto2->_precio;  
-                    return $_nuevoPrecio;
-
+                    return $_objeto1->_precio + $_objeto2->_precio;
                 }else{
-                    return $_nuevoPrecio;
+                    return 0.0;
                 }
             }
 
-            return "No se pueden sumar porque NO son de la misma marca y color...";
+            return "No son de la misma marca y color";
         }
 
 
 
     }
-
-
-    $objeto1 = new Auto("Fiat","rojo",50000);
-    $objeto2 = new Auto("Fiat","rojo",50000);
-
-    
-    Auto::MostrarAuto($objeto1);
-    echo "son iguales : ". $objeto1->Equals($objeto2);
-
-
-
-
-
-
-
-
-
 
 ?>
