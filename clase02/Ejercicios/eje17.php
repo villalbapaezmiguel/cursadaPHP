@@ -1,161 +1,97 @@
-<?php
+<?php 
+    class Auto{
 
-/** */
-class Auto
-{
+        public $_color ;
+        private $_precio;
+        private $_marca;
+        private $_fecha;
 
-    //atributos: color , precio , marca y fecha
-    private $color;
-    private $precio;
-    private $marca;
-    private DateTime $fecha;
-
-    public function __construct()
-    {
-        //obtenemos un array de los agumentos pasados por el contructor
-        $arrayParametros = func_get_args();
-
-        //obtenemos la cantidad de parametros pasados por el constructor
-        $cantidadParametros = func_num_args();
-
-        //obtenemos el nombre de la funcion
-        $nombreContructor = '__construc' . $cantidadParametros;
-        if (method_exists($this, $nombreContructor)) {
-            //si existe , llamo al contructor que tenga ese numero de parametros
-            call_user_func_array(array($this, $nombreContructor), $arrayParametros);
+        function __construct($_marca , $_color , $_precio = 0.0 , $_fecha = null)
+        {
+            $this->_color = $_color;       
+            $this->_precio = $_precio;
+            $this->_marca = $_marca;
+            if (is_string($_fecha)) {
+                $this->_fecha = new DateTime($_fecha);
+            } else {
+                $this->_fecha = $_fecha instanceof DateTime ? $_fecha : null;
+            }
         }
+
+        public function AgregarImpuesto($_impuestoAgregado)
+        {
+            $exito = false;
+
+            if(is_numeric($_impuestoAgregado))
+            {
+                $this->_precio += $_impuestoAgregado;
+                $exito = true;                
+            }
+
+            return $exito;
+        }
+
+        public static function  MostrarAuto(Auto $auto)
+        {
+           echo "<br>";
+
+
+           echo "Marca : ".$auto->_marca."<br>";
+           echo "Color : ".$auto->_color."<br>";
+           echo "Precio : ".$auto->_precio."<br>";
+           echo "Fecha : ".($auto->_fecha ? $auto->_fecha->format('Y-m-d') : "N/A")."<br>";
+
+        } 
+
+        public function Equals(Auto $objeto2 )
+        {
+            $exito = "no..";
+
+            if($this->_marca == $objeto2->_marca)
+            {
+                $exito = "si";
+            } 
+
+            return $exito;
+        }
+
+        public function Add(Auto $objeto2)
+        {
+            $_nuevoPrecio = 0.0;
+            if($this->Equals($objeto2) && $this->_color == $objeto2->_color)
+            {
+                if($this->_precio >= 0.0 && $this->_precio >= 0.0)
+                {
+                    $_nuevoPrecio = $this->_precio + $objeto2->_precio;  
+                    return $_nuevoPrecio;
+
+                }else{
+                    return $_nuevoPrecio;
+                }
+            }
+
+            return "No se pueden sumar porque NO son de la misma marca y color...";
+        }
+
+
+
     }
 
 
-    function __construct0($marca, $color, $precio = 0)
-    {
-        echo "<br> valor de la marca : $marca <br>";
-        $this->SetMarca($marca);
-        $this->color = $color;
-        $this->precio = $precio;
-        $this->fecha = new DateTime();
-    }
+    $objeto1 = new Auto("Fiat","rojo",50000);
+    $objeto2 = new Auto("Fiat","rojo",50000);
 
-    function __construct1($marca, $color, $precio)
-    {
-        $this->marca = $marca;
-        $this->color = $color;
-        $this->precio = $precio;
-        $this->fecha = new DateTime();
-    }
-
-    function __construct2($marca, $color, $precio, $fecha)
-    {
-        $this->marca = $marca;
-        $this->color = $color;
-        $this->precio = $precio;
-        $this->fecha = $fecha;
-    }
-    /*
-    //marca y color
-    function __construct0($marca , $color, $precio = 0 )
-    {
-        $this->marca = $marca;
-        $this->color = $color;
-        $this->precio = $precio;
-        $this->fecha = new DateTime();
-    }
+    
+    Auto::MostrarAuto($objeto1);
+    echo "son iguales : ". $objeto1->Equals($objeto2);
 
 
 
-    //marca , color y precio
-    function __construct1($marca , $color , $precio)
-    {
-        $this->marca = $marca;
-        $this->color = $color;
-        $this->precio = $precio;
-        $this->fecha = new DateTime();
-    }
-
-    // La marca, color, precio y fecha.
-    function __construct2($marca , $color , $precio , $fecha)
-    {
-        $this->marca = $marca;
-        $this->color = $color;
-        $this->precio = $precio;
-        $this->fecha = $fecha;
-        
-    }*/
 
 
-    //generamos getters
-
-    public function GetMarca()
-    {
-        return $this->marca;
-    }
-
-    public function GetColor()
-    {
-        return $this->color;
-    }
-
-    public function GetPrecio()
-    {
-        return $this->precio;
-    }
-
-    public function GetFecha()
-    {
-        return $this->fecha ?? null;
-    }
 
 
-    //generamos setters
 
-    public function SetMarca($marca)
-    {
-        $this->marca = $marca;
-    }
 
-    public function SetColor($color)
-    {
-        $this->color = $color;
-    }
 
-    public function SetPrecio($precio)
-    {
-        $this->precio = $precio;
-    }
-
-    public function SetFecha($fecha)
-    {
-        $this->fecha = $fecha;
-    }
-
-    //Funciones 
-
-    public function AgregarImpuestos($impuesto)
-    {
-        // sumará al precio del objeto
-        $this->precio += $impuesto;
-    }
-    public static function MostrarAuto($auto)
-    {
-        $auxMarca = $auto->GetMarca();
-        $auxColor = $auto->GetColor();
-        $auxPrecio = $auto->GetPrecio();
-        $auxFecha = $auto->GetFecha() ?? "No especificada";
-
-        $infoAuto = "Marca: " . ($auxMarca ?? "No especificada") . "<br>" .
-            "Color: " . ($auxColor ?? "No especificada") . "<br>" .
-            "Precio: " . ($auxPrecio ?? "No especificada") . "<br>" .
-            "Fecha: " . $auxFecha . "<br>";
-
-        echo $infoAuto;
-    }
-}
-
-echo "hola migue, sos un gran programador!! <br>";
-
-$auto1 = new Auto("Fiat", "rojo");
-$auto2 = new Auto("Fiat", "rojo");
-
-Auto::MostrarAuto($auto1);
-echo "<br>";
-Auto::MostrarAuto($auto2);
+?>
