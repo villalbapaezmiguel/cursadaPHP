@@ -1,5 +1,5 @@
 <?php
-include("./clase02/Ejercicios/eje17.php");
+include('C:\xampp\htdocs\cursadaPHP\clase02\Ejercicios\eje17.php');
 class Garage
 {
     private $_razonSocial;
@@ -17,34 +17,41 @@ class Garage
     {
         echo "Razón Social: " . $this->_razonSocial . "<br>";
         echo "Precio por Hora: $" . $this->_precioPorHora . "<br>";
-        echo "Autos en el Garage:\n";
-        foreach ($this->_autos as $auto) 
+        echo "Autos en el Garage: <br>";
+
+        if(!is_null($this->_autos))
         {
-            $auto->mostrarAuto();
+            for ($i=0; $i < count($this->_autos); $i++) { 
+                # code...
+                Auto::MostrarAuto($this->_autos[$i]);
+            }
+        }else{
+            echo "esta vacio..";
         }
-    
     }
 
     /*
     Crear el método de instancia “Equals” que permita comparar al objeto de tipo Garaje con un
     objeto de tipo Auto. Sólo devolverá TRUE si el auto está en el garaje.
     */
-    public function Equals( Garage $_garage , Auto $_auto)
+    public function Equals(Auto $_auto)
     {
-        $existe = false;
-
-        foreach ($_garage->_autos as $valor) {
-            
-            if($valor->Equals($_auto))
-            {
-                $existe = true;
+        $_bandera = -1;
+    
+        if(!is_null($_auto))
+        {
+            foreach ($this->_autos as $autoEnGarage) {
+                if($autoEnGarage->Equals($_auto)) {
+                    // El auto está en el garage
+                    $_bandera = 0;
+                    break;
+                }
             }
         }
-        return $existe;
+        return $_bandera;
     }
     
-
-
+    
     /*
     Crear el método de instancia “Add” para que permita sumar un objeto “Auto” al “Garage”
     (sólo si el auto no está en el garaje, de lo contrario informarlo).
@@ -52,13 +59,13 @@ class Garage
         -1: no se pudo agregar
         0 : Se pudo agregar
     */
-
-    public function Add(Auto $_auto)
+    public function Add(Auto $_nuevoAuto)
     {
         $_bandera = -1;
-        if($this->Equals($this, $_auto))
+        if($this->Equals($_nuevoAuto) == -1)
         {
-            $this->_autos[count($this->_autos)] = $_auto;
+            echo "<br>estoy aca perris Add";
+            array_push($this->_autos,$_nuevoAuto);
             $_bandera = 0;
         }
         return $_bandera;
@@ -71,7 +78,7 @@ class Garage
     public function Remove(Auto $_auto)
     {
         $_bandera = -1;
-        if($this->Equals($this, $_auto))
+        if($this->Equals($_auto))
         {
             $_indice = array_search($_auto, $this->_autos);
             unset($this->_autos[$_indice]);
@@ -80,6 +87,7 @@ class Garage
         }
         return $_bandera;
     }
+
 
 
 }
