@@ -4,7 +4,7 @@ class Garage
 {
     private $_razonSocial;
     private $_precioPorHora;
-    private $_autos = array();
+    private $_autos = array();//inicializo el array
 
     function __construct($_razonSocial, $_precioPorHora = 0.0, $_autos = null)
     {
@@ -15,9 +15,9 @@ class Garage
 
     public function MostrarGarage()
     {
-        echo "Razón Social: " . $this->_razonSocial . "<br>";
-        echo "Precio por Hora: $" . $this->_precioPorHora . "<br>";
-        echo "Autos en el Garage: <br>";
+        echo "<br> Razón Social: " . $this->_razonSocial ;
+        echo "<br> Precio por Hora: $" . $this->_precioPorHora;
+        echo "<br>Autos en el Garage: <br>";
 
         if(!is_null($this->_autos))
         {
@@ -33,19 +33,30 @@ class Garage
     /*
     Crear el método de instancia “Equals” que permita comparar al objeto de tipo Garaje con un
     objeto de tipo Auto. Sólo devolverá TRUE si el auto está en el garaje.
+     0 = es igual ;
+    -1 = no se encontro;
+    -2 = el array esta vacio
     */
     public function Equals(Auto $_auto)
     {
         $_bandera = -1;
-    
+        
         if(!is_null($_auto))
         {
-            foreach ($this->_autos as $autoEnGarage) {
-                if($autoEnGarage->Equals($_auto)) {
-                    // El auto está en el garage
-                    $_bandera = 0;
-                    break;
+            if(!is_null($this->_autos))//Verifico si el array esta vacio y el objeto a comparar no sea nulo
+            {
+                foreach ($this->_autos as $autoEnGarage) 
+                {
+                    if($autoEnGarage->GetMarca() == $_auto->GetMarca() && 
+                    $autoEnGarage->GetColor() == $_auto->GetColor() )
+                    {
+                        $_bandera = 0;
+                        break;
+                    }
                 }
+            }else if(is_null($this->_autos))
+            {
+                $_bandera = -2;
             }
         }
         return $_bandera;
@@ -57,15 +68,15 @@ class Garage
     (sólo si el auto no está en el garaje, de lo contrario informarlo).
     
         -1: no se pudo agregar
-        0 : Se pudo agregar
+         0 : Se pudo agregar
     */
     public function Add(Auto $_nuevoAuto)
     {
         $_bandera = -1;
-        if($this->Equals($_nuevoAuto) == -1)
+        //Si el auto no esta en el garaje O si el garaje se encuentra vacio
+        if($this->Equals($_nuevoAuto) != 0 || $this->Equals($_nuevoAuto) == -2)
         {
-            echo "<br>estoy aca perris Add";
-            array_push($this->_autos,$_nuevoAuto);
+            $this->_autos[] = $_nuevoAuto;
             $_bandera = 0;
         }
         return $_bandera;
@@ -78,7 +89,7 @@ class Garage
     public function Remove(Auto $_auto)
     {
         $_bandera = -1;
-        if($this->Equals($_auto))
+        if($this->Equals($_auto) == 0)
         {
             $_indice = array_search($_auto, $this->_autos);
             unset($this->_autos[$_indice]);

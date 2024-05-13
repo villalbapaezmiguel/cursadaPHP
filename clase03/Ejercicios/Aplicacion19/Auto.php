@@ -108,4 +108,51 @@ class Auto
 
         return "No son de la misma marca y color";
     }
+
+    //Trabajamos con archivos
+
+
+    /**
+     * Esta funcion guarda el objeto en archivo.csv
+     * Retorna : 
+     * -1 : El objeto pasado por parametro es null
+     * -2 : Ocurrio un error un error al intentar escribir el archivo o con la respuesta del archivo
+     *  0 : Salio todo Ok.
+     * param :
+     * Auto $_auto : Objeto a ser convertido en un archivo CSV
+     */
+    public static function GuardarAuto(Auto $_auto)
+    {
+        //fopen(paramUno , paramDos )
+        //paramUno : URL del Archivo a ser abierto
+        //paramDos : Apertura para sólo escritura; coloca el puntero del fichero al final del mismo. Si el fichero no existe, se intenta crear.
+        $archivo = fopen("./ListaAutos.csv","a");
+        if(is_null($_auto))
+        {
+            echo "<br>Error el auto es null";
+            return -1;
+        }
+
+        $informacionAuto = $_auto->GetMarca() . "-" . $_auto->GetColor() . "-" . $_auto->GetPrecio() . "-" . $_auto->GetFecha() . PHP_EOL;
+        
+        //fwrite(paramUno , paramDos)
+        //paramUno : URL del Archivo a ser escrito
+        //paramDos : informacion a ser escrita en el archivo
+        //retorna : La cantidad de bytes que se escribieron , de lo contrario false
+        $resultado = fwrite($archivo,$informacionAuto);
+        
+        if($resultado)
+        {
+            echo "<br> Se escribio correctamente";
+            return 0;
+        }else{
+            echo "<br> Ocurrio un error..";
+            return -2;
+        }
+
+        fclose($archivo);//Cerramos el archivo
+    }
+
+
+
 }
