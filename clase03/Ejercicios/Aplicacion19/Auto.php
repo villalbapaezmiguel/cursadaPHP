@@ -59,13 +59,21 @@ class Auto
         return 0;
     }
 
+    /**esta funcion agrega un incremento del atributo precio
+     * param : 
+     * -_impuestoAgregado : Es el impuesto a ser agregado
+     * 
+     * retorna : 
+     *  -1 : en caso de que no haya sido exitosa la operacion
+     *   0 : salio todo bien.
+     */
     public function AgregarImpuesto($_impuestoAgregado)
     {
-        $exito = false;
+        $exito = -1;
 
         if (is_numeric($_impuestoAgregado)) {
             $this->_precio += $_impuestoAgregado;
-            $exito = true;
+            $exito = 0;
         }
 
         return $exito;
@@ -152,6 +160,20 @@ class Auto
 
         fclose($archivo);//Cerramos el archivo
     }
+
+    public static function LeerAutos($_ruta)
+    {
+        $archivo = fopen($_ruta , 'r');
+        
+        while(!feof($archivo))
+        {
+            $contenido = fgets($archivo , filesize($_ruta));
+            echo "<br>" . $contenido;
+        }
+    
+        fclose($archivo);
+    }
+
 
 
 

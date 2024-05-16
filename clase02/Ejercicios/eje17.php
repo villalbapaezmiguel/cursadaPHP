@@ -108,4 +108,8 @@ class Auto
 
         return "No son de la misma marca y color";
     }
+
+
+
+    
 }
