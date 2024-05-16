@@ -63,7 +63,65 @@ function obtenerDimensionesCuboides($lista) : int
 }
 
 
-/**Un isograma es una palabra que no tiene letras repetidas, consecutivas o no 
- * consecutivas. 
- * Implemente una función que determine si una cadena que contiene solo letras es un isograma. Suponga que la cadena vacía es un isograma. Ignorar mayúsculas y minúsculas. */
+/*
+Escriba una función que acepte una matriz de 10 números enteros (entre 0 y 9), 
+que devuelva una cadena de esos números en forma de número de teléfono.
+
+El formato devuelto debe ser correcto para poder completar este desafío.
+
+¡No olvides el espacio después del paréntesis de cierre!
+ */
+
+ function createPhoneNumber($numbersArray) {
+    // your code here
+
+    if(count($numbersArray) <= 10)
+    {
+        if(validarEnteros($numbersArray))
+        {
+            
+        }
+    }
+  }
+
+  function validarEnteros($arrayEnteros) : int
+  {
+    for ($i=0; $i < count($numbersArray); $i++) { 
+        # code...
+        if(($numbersArray[$i] >= 0 && $numbersArray[$i] <= 9)!)
+        {
+            break;
+            return -1;
+        }            
+    }
+
+    return 0;
+  }
+
+
+/**Hubo un examen en tu clase y lo pasaste. ¡Felicidades!
+Pero eres una persona ambiciosa. Quieres saber si eres mejor que el estudiante promedio
+ de tu clase.
+
+Recibirá una matriz con los puntajes de las pruebas de sus compañeros. 
+¡Ahora calcula el promedio y compara tu puntuación!
+
+Devuelve Verdadero si eres mejor; de lo contrario, ¡falso! */
+
+function betterThanAverage($classPoints, $yourPoints) {
+    // Your code here
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 ?>

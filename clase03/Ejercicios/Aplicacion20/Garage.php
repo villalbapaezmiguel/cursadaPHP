@@ -1,5 +1,6 @@
 <?php
-include('C:\xampp\htdocs\cursadaPHP\clase03\Ejercicios\Aplicacion19\Auto.php');
+include('/xampp/htdocs/clase03/Ejercicios/Aplicacion19/Auto.php');
+
 class Garage
 {
     private $_razonSocial;
