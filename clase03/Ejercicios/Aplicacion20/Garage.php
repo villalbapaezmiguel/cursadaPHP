@@ -1,17 +1,17 @@
 <?php
-include('/xampp/htdocs/clase03/Ejercicios/Aplicacion19/Auto.php');
-
+//include('/xampp/htdocs/clase03/Ejercicios/Aplicacion19/Auto.php');
+include('/xampp/htdocs/cursadaPHP/clase03/Ejercicios/Aplicacion19/Auto.php');
 class Garage
 {
     private $_razonSocial;
     private $_precioPorHora;
     private $_autos = array();//inicializo el array
 
-    function __construct($_razonSocial, $_precioPorHora = 0.0, $_autos = null)
+    function __construct($_razonSocial, $_precioPorHora = 0.0)
     {
         $this->_razonSocial = $_razonSocial;
         $this->_precioPorHora = $_precioPorHora;
-        $this->_autos = $_autos;
+        $this->_autos = [];
     }
 
     public function MostrarGarage()
@@ -20,7 +20,7 @@ class Garage
         echo "<br> Precio por Hora: $" . $this->_precioPorHora;
         echo "<br>Autos en el Garage: <br>";
 
-        if(!is_null($this->_autos))
+        if(!is_null($this->_autos) && !empty($this->_autos))
         {
             for ($i=0; $i < count($this->_autos); $i++) { 
                 # code...
@@ -46,7 +46,20 @@ class Garage
     //Da la cantidad de objetos que tiene 
     public function GetAutos()
     {
-        return count($this->_autos);
+        $informacionAuto = "";
+        if(!is_null($this->_autos))
+        {
+            foreach($this->_autos as $_valor)
+            {
+                //echo "<br>" . Auto::MostrarAuto($_valor);
+                $informacionAuto .= Auto::MostrarAuto($_valor);
+            }
+
+        }else{
+            return "No hay autos";
+        }
+
+        return $informacionAuto;
     }
 
     //Seter
@@ -174,7 +187,50 @@ class Garage
         fclose($archivo);//Cerramos el archivo
     }
 
+    public static function LeerGarage($_ruta)
+    {
+        $archivo = fopen($_ruta , 'r');
+        
+        while(!feof($archivo))
+        {
+            $contenido = fgets($archivo , filesize($_ruta));
+            echo "<br>" . $contenido;
+        }
+    
+        fclose($archivo);
+    }
 
+    
+    public static function LeerGaragesCSV($filename) {
+        $garages = []; // Inicializa un array para almacenar los objetos Garage.
+        $file = fopen($filename, 'r'); // Abre el archivo CSV en modo lectura.
+    
+        while (($data = fgetcsv($file)) !== false) {
+            // Lee la primera línea que contiene la razón social y el precio por hora del garage.
+            $razonSocial = $data[0];
+            $precioPorHora = $data[1];
+            $garage = new Garage($razonSocial, $precioPorHora); // Crea un nuevo objeto Garage.
+    
+            // Ahora lee los autos asociados al garage.
+            while (($autoData = fgetcsv($file)) !== false) {
+                // Verifica si la línea tiene exactamente 3 campos (marca, modelo, color).
+                if (count($autoData) < 3) {
+                    // Si no tiene 3 campos, se asume que no hay más autos y se vuelve a la lectura del siguiente garage.
+                    break;
+                }
+                // Crea un nuevo objeto Auto con los datos leídos y lo agrega al garage.
+                $auto = new Auto($autoData[0], $autoData[1], $autoData[2]);
+                $garage->Add($auto);
+            }
+    
+            // Agrega el objeto Garage al array de garages.
+            $garages[] = $garage;
+        }
+    
+        fclose($file); // Cierra el archivo CSV.
+        return $garages; // Retorna el array de objetos Garage.
+    }
+    
 
 
 }
