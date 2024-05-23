@@ -1,5 +1,6 @@
 <?php
 include('/xampp/htdocs/cursadaPHP/clase03/Ejercicios/Aplicacion20/Garage.php');
+//Ejercicio 20
 /*
 $_garage = new Garage("Anonimo",17000);
 
