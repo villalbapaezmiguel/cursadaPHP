@@ -1,16 +1,34 @@
 <?php 
-
 include('./Usuario.php');
 
-if(isset($_GET['nombre']) && isset($_GET['cleve']) && isset($_GET['mail']))
+/*
+Usuario::CargarUsuarioCSV(new Usuario('Jorge','12345','jorge@gmail.com'));
+Usuario::CargarUsuarioCSV(new Usuario('Alexis','222','Alexis@gmail.com'));
+Usuario::CargarUsuarioCSV(new Usuario('Migue','3333','Migue@gmail.com'));
+Usuario::CargarUsuarioCSV(new Usuario('Oscar','4444','Oscar@gmail.com'));
+Usuario::CargarUsuarioCSV(new Usuario('Raul','6666','Raul@gmail.com'));*/
+$listadoUsarios = [];
+
+if(isset($_GET['listado']) && $_GET['listado'] === 'usuarios' )
 {
-    $_nombre = $_GET['nombre'];
-    $_clave = $_GET['cleve'];
-    $_mail = $_GET['mail'];
-    
+    echo "<br> si existe ese listado ";
+    //Mostramos los datos del archivo.csv
+
+    $listadoUsarios = Usuario::MostrarUsuariosCSV('usuarios.csv');
+
+    if(count($listadoUsarios) >= 1)
+    {
+        foreach ($listadoUsarios as $objeto) {
+            # code...
+            Usuario::Mostrar($objeto);
+        }
+    }else{
+        echo "<br> no hay listado";
+    }
+
 
 }else{
-    echo "<br> las key son incorrectas o no existen...";
+    echo "<br> NO existe..";
 }
 
 

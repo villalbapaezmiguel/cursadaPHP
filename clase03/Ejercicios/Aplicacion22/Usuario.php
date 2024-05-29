@@ -1,5 +1,4 @@
 <?php
-
 class Usuario {
 
     private $_nombre;
@@ -30,7 +29,7 @@ class Usuario {
     {
         if(!is_null($_usuario))
         {
-            $archivo = fopen('usuarios.csv','a');
+            $archivo = fopen('listaUsuario.csv','a');
 
             $informacion = $_usuario->GetNombre() . " - " . $_usuario->GetClave() . " - " . $_usuario->GetMail() . PHP_EOL;
             $resultado = fwrite($archivo,$informacion);
@@ -69,9 +68,61 @@ class Usuario {
         echo "<br>". "Nombre : ". $usuario->GetNombre() . " - " . "Mail : ". $usuario->GetMail() . " - " . "Clave : ". $usuario->GetClave();
     }
 
+    public static function VerificarUsuario($clave, $mail)
+    {
+        if(!empty($clave) || !empty($mail))
+        {
+            $arrayLisatado = Usuario::MostrarUsuariosCSV('listaUsuario.csv');
 
+            if(count($arrayLisatado) >= 1)
+            {
+                foreach ($arrayLisatado as $usuario) {
+                    # code...
+                    //Verificado” si el usuario existe y coincide la clave también.
+                    if($usuario->GetClave() == $clave && $usuario->GetMail() == $mail)
+                    {
+                        echo "<br> Verificado";
+                        break;
+                    }else if(($usuario->GetClave() == $clave) == false 
+                    && $usuario->GetMail() == $mail)
+                    {//“Error en los datos” si esta mal la clave
+                        echo "<br> Error en los datos..";
+                    }else if(($usuario->GetMail() == $mail) == false)
+                    {
+                        echo "<br>Usuario no registrado";
+                    }
+                }
+            }else{
+                echo "<br> no hay listado";
+            }
+
+        }else{
+            echo "<br> Los campos estan vacios..";
+        }
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
