@@ -68,37 +68,82 @@ class Usuario {
         echo "<br>". "Nombre : ". $usuario->GetNombre() . " - " . "Mail : ". $usuario->GetMail() . " - " . "Clave : ". $usuario->GetClave();
     }
 
+    public static function ImprimirListaUsuario()
+    {
+        $_arrayUsuario = Usuario::ListaUsuario();
+        foreach ($_arrayUsuario as $usuario) {
+            # code...
+            Usuario::Mostrar($usuario);
+        }
+    }
+
+    public static function ListaUsuario()
+    {
+        return Usuario::MostrarUsuariosCSV('listaUsuario.csv');
+    }
+
+    public static function VerifcarEmail($_email)
+    {
+        $exito = -1;
+        $lista = Usuario::ListaUsuario();
+        foreach($lista as $usuario)
+        {
+            if($usuario->GetMail() === $_email)
+            {
+                $exito = 0;
+                break;
+            }
+        }
+        return $exito;
+    }
+
+    public static function VerifcarClave($_clave)
+    {
+        $exito = -1;
+        $lista = Usuario::ListaUsuario();
+        foreach($lista as $usuario)
+        {
+            if($usuario->GetClave() == $_clave)
+            {
+                $exito = 0;
+
+                break;
+            }
+        }
+        return $exito;
+    }
+
+
+
     public static function VerificarUsuario($clave, $mail)
     {
+        $_verificado = -1;
+
         if(!empty($clave) || !empty($mail))
         {
-            $arrayLisatado = Usuario::MostrarUsuariosCSV('listaUsuario.csv');
-
-            if(count($arrayLisatado) >= 1)
+            
+            if(Usuario::VerifcarClave($clave) == 0 && Usuario::VerifcarEmail($mail) == 0)
             {
-                foreach ($arrayLisatado as $usuario) {
-                    # code...
-                    //Verificado” si el usuario existe y coincide la clave también.
-                    if($usuario->GetClave() == $clave && $usuario->GetMail() == $mail)
-                    {
-                        echo "<br> Verificado";
-                        break;
-                    }else if(($usuario->GetClave() == $clave) == false 
-                    && $usuario->GetMail() == $mail)
-                    {//“Error en los datos” si esta mal la clave
-                        echo "<br> Error en los datos..";
-                    }else if(($usuario->GetMail() == $mail) == false)
-                    {
-                        echo "<br>Usuario no registrado";
-                    }
-                }
-            }else{
-                echo "<br> no hay listado";
+                //si el usuario existe y la clave tambien coincide
+                $_verificado = 0;
+            }
+
+            if(Usuario::VerifcarEmail($mail) == 0 && Usuario::VerifcarClave($clave) == -1)
+            {
+                //Error en los datos si esta mal la clave
+                $_verificado = 1;
+            }
+
+            if(Usuario::VerifcarEmail($mail) == -1 && Usuario::VerifcarClave($clave) == 0)
+            {
+                $_verificado = 2;
             }
 
         }else{
             echo "<br> Los campos estan vacios..";
-        }
+        }   
+        
+        return $_verificado;
     }
 
 }
