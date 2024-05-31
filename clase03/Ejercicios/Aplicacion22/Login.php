@@ -19,8 +19,7 @@ echo "<br> Mail : " .$mail;
 
 Usuario::ImprimirListaUsuario();
 $verificacion = Usuario::VerificarUsuario($clave,$mail);
-echo $verificacion;
-
+echo "<br> ---------------------------";
 if($verificacion == 0)
 {
     echo "<br> Verificado";

@@ -87,8 +87,8 @@ class Usuario {
         $exito = -1;
         $lista = Usuario::ListaUsuario();
         foreach($lista as $usuario)
-        {
-            if($usuario->GetMail() === $_email)
+        {            
+            if(trim($usuario->GetMail()) === trim($_email))
             {
                 $exito = 0;
                 break;
@@ -121,8 +121,8 @@ class Usuario {
 
         if(!empty($clave) || !empty($mail))
         {
-            
-            if(Usuario::VerifcarClave($clave) == 0 && Usuario::VerifcarEmail($mail) == 0)
+            if(Usuario::VerifcarClave($clave) == 0 
+            && Usuario::VerifcarEmail($mail) == 0)
             {
                 //si el usuario existe y la clave tambien coincide
                 $_verificado = 0;
