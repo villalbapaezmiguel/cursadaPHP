@@ -96,8 +96,8 @@ class Registro{
         $archivo = fopen($json,'r');
         $info = fread($archivo, filesize('usuarios.json'));
         $decodificado = json_decode($info,true);
-        fclose($archivo);
         var_dump($decodificado);
+        fclose($archivo);
 
     }
 
