@@ -25,13 +25,6 @@ class Registro{
             $auxFecha = new DateTime();
             $fecha = $auxFecha->format('m-d-y');
         }
-        /*
-        if (is_string($fecha)) {
-            $this->_fecha = new DateTime($fecha);
-        } else {
-            $this->_fecha = $fecha instanceof DateTime ? $fecha : null;
-        }*/
-
         $this->_fecha = $fecha;
         $this->_id = $id;
     }
@@ -80,7 +73,7 @@ class Registro{
 
     public static function AgregarJSON(Registro $nuevoUsuario)
     {
-
+        /*
         $archivo = fopen("usuarios.json","a");
         if(fputs($archivo,json_encode($nuevoUsuario->toArray()) . PHP_EOL) >= 1)
         {
@@ -88,16 +81,27 @@ class Registro{
         }else{
             echo "<br> Ocurrio un error";
         }
+        fclose($archivo);*/
+        $archivo = fopen("usuarios.json","a");
+        fputs($archivo,json_encode(Registro::CasteoGenerico($nuevoUsuario)));
+        //fputs($archivo , json_encode($nuevoUsuario->toArray()));
         fclose($archivo);
+
+        //hay un error y es que tenemos que hacer :
+        //traer la informacion del archivo
+        //agregarlo al nuevo cargar
+        //transformarlo en un array y volverlo a guardar
+        //ENCONTRAR LA FORMA    
+
     }
 
     public static function LeerJSON($json)
     {
         $archivo = fopen($json,'r');
-        $info = fread($archivo, filesize('usuarios.json'));
-        $decodificado = json_decode($info,true);
-        var_dump($decodificado);
+        $info = fread($archivo, filesize($json));
+        $decodificado = json_decode($info);
         fclose($archivo);
+        var_dump($decodificado);
 
     }
 
@@ -119,7 +123,7 @@ class Registro{
 
     public static function CasteoGenerico(Registro $objeto)
     {
-        $objetoGenerico = new stdClass();
+        $objetoGenerico = new stdClass();//te crea un objeto generico
 
         $objetoGenerico->_nombre = $objeto->GetNombre();
         $objetoGenerico->_clave = $objeto->GetClave();
