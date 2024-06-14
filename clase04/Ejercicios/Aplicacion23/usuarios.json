@@ -1,0 +1,30 @@
+[
+    {
+        "_nombre": "Migue",
+        "_clave": "1234",
+        "_mail": "migue@utn.com",
+        "_id": 2035,
+        "_fecha": "2024-06-14"
+    },
+    {
+        "_nombre": "Oscar",
+        "_clave": "4444",
+        "_mail": "oscar@utn.com",
+        "_id": 9843,
+        "_fecha": "2024-06-14"
+    },
+    {
+        "_nombre": "Abel",
+        "_clave": "666",
+        "_mail": "oscar@utn.com",
+        "_id": 9785,
+        "_fecha": "2024-06-14"
+    },
+    {
+        "_nombre": "Abel",
+        "_clave": "666",
+        "_mail": "oscar@utn.com",
+        "_id": 4312,
+        "_fecha": "2024-06-14"
+    }
+]

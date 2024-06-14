@@ -1,5 +1,31 @@
 <?php
 
+class Mover{
+
+    public static function MoverArchivoFoto($nombre, $tipo , $carpeta ,$tmp_name)
+    {
+        $exito = -1;
+
+        $destino = $carpeta . $nombre;
+        if(!(strpos($tipo,"jpeg") || strpos($tipo,"png")))
+        {
+            echo "<br> EEROR , conflictos con el tipo";
+        }else{
+            if(move_uploaded_file($tmp_name,$destino))
+            {
+                echo "<br> El archivo ha sido cargado correctamente";  
+            }
+        }
+        return $exito;
+    }
+
+
+
+}
+
+
+/*
+
 $carpeta_archivos = "Subida/";
 
 $nombre_archivo = $_FILES["archivo"]['name'];
@@ -21,6 +47,15 @@ $tamano_archivo < 100000 )
         echo "<br> Ocurrio un error al mover el archivo";
     }
 }
+*/
+
+
+
+
+
+
+
+
 
 
 
