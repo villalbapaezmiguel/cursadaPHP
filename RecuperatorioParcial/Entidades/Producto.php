@@ -22,6 +22,14 @@ class Producto {
         $this->_id = self::$contado_id;
         $this->_stock = $_stock;
     }
+    public function GetNombre()
+    {
+        return $this->_nombre;
+    }
+    public function GetTipo()
+    {
+        return $this->_tipo;
+    }
 
     public function GetId()
     {
@@ -71,9 +79,33 @@ class Producto {
 
         return $exite ;
     }
-    
+    /**
+     * return : 
+     * 0 : Si lo encontro y devuelve su indice
+     * -1 : No encontrado
+     */
+    public function EncontrarPorNombreYTipo($nombre , $tipo)
+    {
+        $arrayProductos = $this->ObtenerProductosExistentes('tienda.json');
+        $indice = 0;
+        if($arrayProductos != null)
+        {
+            foreach ($arrayProductos as $producto) {
+                
+                //validar el nombre y el tipo
+                if($producto->GetNombre() == $nombre && $producto->GetTipo() == $tipo)
+                {
+                    return $indice;
+                }
+                $indice++;  
+            }
+        }
+        return -1;
+    }
 
-    public static function AgregarJSON(Producto $nuevoUsuario)
+
+
+    public static function AgregarJSON(Producto $nuevoProducto)
     {
         $exito = -1;
         $archivo = "tienda.json";
@@ -87,11 +119,21 @@ class Producto {
             if($productoExistentes == null)
             {
                 $productoExistentes = [];
+            }else
+            {
+                // Si el nombre y tipo ya existen, se actualiza el precio y se suma al stock existente.
+                
+                /*
+                if($this->EncontrarPorNombreYTipo($nuevoProducto->GetNombre() , $nuevoProducto->GetTipo()) != -1)
+                {
+
+                }*/
             }
+            
         }
 
         //agregamos al usuario al array existente
-        $productoExistentes [] = $nuevoUsuario;
+        $productoExistentes [] = $nuevoProducto;
 
         //codificar el array completo a json
         $jsonActualizado = json_encode($productoExistentes,JSON_PRETTY_PRINT);

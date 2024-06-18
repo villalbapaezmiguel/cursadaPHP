@@ -10,6 +10,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     {
         $producto = new Producto($_POST['nombre'],$_POST['precio'],$_POST['tipo'],$_POST['marca'],$_POST['stock']);
 
+        
+
         if(Producto::AgregarJSON($producto) == 0)
         {
             
