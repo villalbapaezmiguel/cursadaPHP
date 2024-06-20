@@ -86,15 +86,17 @@ El formato devuelto debe ser correcto para poder completar este desafío.
 
   function validarEnteros($arrayEnteros) : int
   {
+        /*
     for ($i=0; $i < count($numbersArray); $i++) { 
         # code...
+    
         if(($numbersArray[$i] >= 0 && $numbersArray[$i] <= 9)!)
         {
             break;
             return -1;
-        }            
+        }          
     }
-
+*/  
     return 0;
   }
 

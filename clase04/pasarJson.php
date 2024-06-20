@@ -21,7 +21,7 @@ $clase->_edad = 23;
 $json_Objeto = json_encode($clase);
 
 echo $json_Objeto;
-
+ 
 
 
 //JSON a PHP
