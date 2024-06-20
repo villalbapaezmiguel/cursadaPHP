@@ -7,6 +7,13 @@ echo "<br>Estas en tiendaAlta";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['nombre']) && isset($_POST['precio']) && isset($_POST['tipo']) && isset($_POST['marca']) && isset($_POST['stock'])) 
     {
+        $nombre = $_POST['nombre'];
+        $precio = $_POST['precio'];
+        $tipo = $_POST['tipo'];
+        $marca = $_POST['marca'];
+        $stock = $_POST['stock'];
+
+        
 
 
     } else {
@@ -15,5 +22,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     echo "<br>Tiene que estar en POst";
 }
-
 
