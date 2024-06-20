@@ -21,11 +21,17 @@ if(isset($_GET['accion']))
             }
         break;
         case "POST":
-            switch($_GET["accion"])
+            switch($_POST["accion"])
             {
+                case "TiendaAlta":
+                    include('./Entidades/TiendaAlta.php');
+                    break;
+                    case "ProductoConsulta":
+                        include('./Entidades/ProductoConsultar.php');
+                        break;
                 default :
-                    echo "<br> Parametro accion no permitido..";
-                break;
+                    echo "<br>Parametro de accion no definido..";
+                    break;
             }
         break;
     

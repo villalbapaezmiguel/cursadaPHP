@@ -11,13 +11,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     {
         $carpeta = "./Usuarios/Fotos/";
         if(Mover::MoverArchivoFoto($_FILES["archivo"]['name'],
-            $_FILES["archivo"]['type'],$carpeta,
+            $_FILES["archivo"]['type'],
+            $carpeta,
             $_FILES["archivo"]["tmp_name"]) 
             == 0)
         {
+
             echo "<br> Se agrego correctamente";
         }
-
     }else {
         echo "<br> NO , Ocurrio un error..";
     }
