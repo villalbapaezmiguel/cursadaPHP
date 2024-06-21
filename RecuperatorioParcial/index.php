@@ -21,7 +21,7 @@ if(isset($_GET['accion']))
             }
         break;
         case "POST":
-            switch($_POST["accion"])
+            switch($_GET["accion"])
             {
                 case "TiendaAlta":
                     include('./Entidades/TiendaAlta.php');
@@ -40,7 +40,23 @@ if(isset($_GET['accion']))
 }
 
 
+function ManejarGet($accion)
+{
+    switch($accion)
+    {
+        case 'TiendaAlta':
+            include('./Entidades/TiendaAlta.php');
+            break;
+        case "ProductoConsulta":
+            include('./Entidades/ProductoConsultar.php');
+        break;
+        default :
+            http_response_code(400);
+            echo json_encode(["Error"=>"Esta accion no esta definida para GET"]);
+        break;
+    }
 
+}
 
 
 
