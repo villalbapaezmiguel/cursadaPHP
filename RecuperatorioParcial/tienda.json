@@ -1,0 +1,11 @@
+[
+    {
+        "id": 1,
+        "nombre": "Manaos",
+        "precio": "1000",
+        "tipo": "bebida",
+        "marca": "Mananos",
+        "stock": "60",
+        "imagen": ".\/ImagenesDeProductos\/2024\/ArbolDeZarsa.jpg"
+    }
+]
