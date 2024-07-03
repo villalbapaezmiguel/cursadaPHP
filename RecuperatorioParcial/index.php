@@ -50,12 +50,12 @@ function ManejarPOST($accion)
         case 'TiendaAlta':
             include('./Entidades/TiendaAlta.php');
             break;
-        case "ProductoConsulta":
+        case "ProductoConsultar":
             include('./Entidades/ProductoConsultar.php');
         break;
         default :
             http_response_code(400);
-            echo json_encode(["Error"=>"Esta accion no esta definida para GET"]);
+            echo json_encode(["Error"=>"Esta accion no esta definida para POST"]);
         break;
     }
 

@@ -10,20 +10,25 @@ class Tienda {
     }
 
     private function cargarProductos() {
-        if (file_exists($this->archivo)) {
+        if (file_exists($this->archivo)) 
+        {
             $contenido = file_get_contents($this->archivo);
             return json_decode($contenido, true);
         }
         return [];
     }
 
-    public function guardarProductos() {
+    public function guardarProductos() 
+    {
         file_put_contents($this->archivo, json_encode($this->productos, JSON_PRETTY_PRINT));
     }
 
-    public function agregarOActualizarProducto($nombre, $precio, $tipo, $marca, $stock, $imagen) {
-        foreach ($this->productos as &$producto) {
-            if ($producto['nombre'] == $nombre && $producto['tipo'] == $tipo) {
+    public function agregarOActualizarProducto($nombre, $precio, $tipo, $marca, $stock, $imagen) 
+    {
+        foreach ($this->productos as &$producto) 
+        {
+            if ($producto['nombre'] == $nombre && $producto['tipo'] == $tipo) 
+            {
                 $producto['precio'] = $precio;
                 $producto['stock'] += $stock;
                 $producto['imagen'] = $imagen;
@@ -54,6 +59,9 @@ class Tienda {
         }
         return $maxId + 1;
     }
+
+
+
 }
 
 

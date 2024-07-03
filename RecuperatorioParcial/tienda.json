@@ -1,11 +1,29 @@
 [
     {
         "id": 1,
-        "nombre": "Manaos",
+        "nombre": "Patricio",
         "precio": "1000",
         "tipo": "bebida",
-        "marca": "Mananos",
+        "marca": "VillaManaos",
         "stock": "60",
-        "imagen": ".\/ImagenesDeProductos\/2024\/ArbolDeZarsa.jpg"
+        "imagen": ".\/ImagenesDeProductos\/2024\/descarga (1).jpeg"
+    },
+    {
+        "id": 2,
+        "nombre": "PepsiCola",
+        "precio": "950",
+        "tipo": "bebida",
+        "marca": "Pepsi",
+        "stock": "50",
+        "imagen": ".\/ImagenesDeProductos\/2024\/pepsi.jpg"
+    },
+    {
+        "id": 3,
+        "nombre": "Cola",
+        "precio": "2500",
+        "tipo": "bebida",
+        "marca": "Coca-cola",
+        "stock": "76",
+        "imagen": ".\/ImagenesDeProductos\/2024\/cocaCola.jpg"
     }
 ]

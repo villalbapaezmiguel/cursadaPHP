@@ -5,7 +5,9 @@ include('Tienda.php');
 echo "<br>Estas en tiendaAlta";
 $tienda = new Tienda("tienda.json");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') 
+{
+
     if (isset($_POST['nombre']) && isset($_POST['precio']) && isset($_POST['tipo']) && isset($_POST['marca']) && isset($_POST['stock']) && isset($_FILES['archivo'])) {
         $nombre = $_POST['nombre'];
         $precio = $_POST['precio'];
