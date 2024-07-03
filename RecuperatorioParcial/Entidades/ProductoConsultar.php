@@ -1,7 +1,6 @@
 <?php
 include('Producto.php');
 
-<<<<<<< HEAD
 if(isset($_POST['nombre']) && isset($_POST['tipo']) && isset($_POST['marca']))
 {
     $existe = BuscarProducto($_POST['nombre'],$_POST['tipo'],$_POST['marca']);
@@ -94,28 +93,6 @@ function BuscarPorTipo($tipo)
     }
     return -1;
 }
-=======
-echo "<br>Estoy en Producto consulta";
-include('Producto.php');
-
-if($_SERVER['REQUEST_METHOD'] == 'POST')
-{   
-
-
-
-}else {
-    echo "<br> Estas consultas tienen que ser por POST";
-}
-
-function Consulta($nombre , $tipo , $marca , $archivo)
-{
-    
-}
-
-
-
-
->>>>>>> b5d0572be34512c9efaab528f008db8e2a4975c1
 
 
 

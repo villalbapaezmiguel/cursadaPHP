@@ -9,15 +9,6 @@ class Tienda {
         $this->productos = $this->cargarProductos();
     }
 
-    public function GetArchivo()
-    {
-        return $this->archivo;
-    }
-    public function GetProductos()
-    {
-        return $this->productos;
-    }
-
     private function cargarProductos() {
         if (file_exists($this->archivo)) 
         {
@@ -32,19 +23,12 @@ class Tienda {
         file_put_contents($this->archivo, json_encode($this->productos, JSON_PRETTY_PRINT));
     }
 
-<<<<<<< HEAD
     public function agregarOActualizarProducto($nombre, $precio, $tipo, $marca, $stock, $imagen) 
     {
         foreach ($this->productos as &$producto) 
         {
             if ($producto['nombre'] == $nombre && $producto['tipo'] == $tipo) 
             {
-=======
-    public function agregarOActualizarProducto($nombre, $precio, $tipo, $marca, $stock, $imagen) {
-        foreach ($this->productos as &$producto) {
-
-            if ($producto['nombre'] == $nombre && $producto['tipo'] == $tipo) {
->>>>>>> b5d0572be34512c9efaab528f008db8e2a4975c1
                 $producto['precio'] = $precio;
                 $producto['stock'] += $stock;
                 $producto['imagen'] = $imagen;
@@ -62,7 +46,6 @@ class Tienda {
             'stock' => $stock,
             'imagen' => $imagen
         ];
-
         $this->productos[] = $nuevoProducto;
         $this->guardarProductos();
     }
