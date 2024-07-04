@@ -21,6 +21,24 @@ if(isset($_POST['nombre']) && isset($_POST['tipo']) && isset($_POST['marca']))
 
 }
 
+function BuscarPrecioProducto($nombre , $tipo , $marca)
+{
+    $precio = -1;
+    $contenido = file_get_contents('tienda.json');
+    $arrayProductos = json_decode($contenido,true);
+
+    foreach($arrayProductos as $producto)
+    {
+        if($producto['nombre'] == $nombre && $producto['tipo'] == $tipo && $producto['marca'] == $marca)
+        {
+            $precio = $producto->GetPrecio();
+            break;
+        }    
+    }
+
+    return $precio;
+}
+
 /**
  * retorna : 
  * -1: No encotro nungun parecido a los parametros pasados
