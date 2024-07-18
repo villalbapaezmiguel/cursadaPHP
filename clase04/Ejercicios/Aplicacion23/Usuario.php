@@ -77,6 +77,30 @@ class Usuario implements JsonSerializable{
     }
 
 
+    public static function LeerJSON($rutaJSON)
+    {
+        $arrayUsuarios = array();
+
+        if(file_exists($rutaJSON))
+        {
+            $contenidoArchivo = file_get_contents($rutaJSON);
+            $arrayUsuarios = json_decode($contenidoArchivo,true);
+
+        }else{
+            echo json_encode(["ERROR" => "Esta ruta no existe.."]);
+        }
+        return $arrayUsuarios;
+    }
+
+    public static function Mostrar($usuario)
+    {
+        echo "Nombre : ". $usuario->GetNombre();
+        echo "Clave : ". $usuario->GetClave();
+        echo "Mail : ". $usuario->GetMail();
+        echo "Fecha : ". $usuario->GetFecha();
+        echo "<br><br> ";
+    }
+
 }
 
 

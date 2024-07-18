@@ -14,6 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
             if(guardarVentaJSON($nuevaVenta,'ventas.json', $precio))
             {
                 /**falta descontar la cantidad vendida del stock. */
+                
                 echo "<br> Venta guardada existosamente..";
             }else{
                 echo json_encode(["ERROR"=> "NO se pudo escribir en el archivo"]);
