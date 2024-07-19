@@ -10,17 +10,13 @@ if($_SERVER['REQUEST_METHOD'] == "GET")
         {
             case "usuarios":
 
+                $arrayUsuarios = [];
                 $arrayUsuarios = Usuario::LeerJSON('usuarios.json');
                 //var_dump($arrayUsuarios);
-                if($arrayUsuarios != null)
+                foreach($arrayUsuarios as $usuario)
                 {
-                    foreach($arrayUsuarios as &$usuario)
-                    {
-                        echo $usuario->GetNombre();
-                        //echo  var_dump($usuario) . "<br>";                       
-                    }
+                    echo Usuario::Mostrar($usuario);
                 }
-
                 break;
             default : echo json_encode(["ERROR" => "No existe ese listado..."]);
         }

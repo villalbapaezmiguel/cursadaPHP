@@ -79,12 +79,28 @@ class Usuario implements JsonSerializable{
 
     public static function LeerJSON($rutaJSON)
     {
-        $arrayUsuarios = array();
+        $arrayUsuarios = [];
 
         if(file_exists($rutaJSON))
         {
             $contenidoArchivo = file_get_contents($rutaJSON);
-            $arrayUsuarios = json_decode($contenidoArchivo,true);
+            $arrayUsuariosJSON = json_decode($contenidoArchivo,true);
+
+            if($arrayUsuariosJSON != null)
+            {
+                foreach($arrayUsuariosJSON as $usuario)
+                {
+                    $nuevoUsuario = new Usuario(
+                        $usuario['_nombre'],
+                        $usuario['_clave'],
+                        $usuario['_mail'],
+                        $usuario['_id'],
+                        $usuario['_fecha']);
+
+                        $arrayUsuarios[] = $nuevoUsuario;
+                }
+            }
+
 
         }else{
             echo json_encode(["ERROR" => "Esta ruta no existe.."]);
