@@ -7,6 +7,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 {
     if(isset($_POST['codigo']) && isset($_POST['nombre']) && isset($_POST['tipo']) && isset($_POST['stock']) && isset($_POST['precio']))
     {
+        $aux = new Producto($_POST['codigo'],$_POST['nombre'],$_POST['tipo'],$_POST['stock'],$_POST['precio']);
+
+        if(VerificarProducto($aux))
+        {
+            echo json_encode(["Producto Ingresado" => "Ese producto ya se encuentra.."]);
+        }else{
+            echo json_encode(["Producto Ingresado" => "NO se encuentra y a sido agregado"]);
+        }
+
 
 
 
