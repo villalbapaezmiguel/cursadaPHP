@@ -11,14 +11,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 
         if(VerificarProducto($aux))
         {
-            echo json_encode(["Producto Ingresado" => "Ese producto ya se encuentra.."]);
+            echo json_encode(["Actualizado" => "Se actualizo su STOCK"]);
+            Producto::ModificarStockProducto('listaProducto.json',$aux->GetCodigo(),$aux->GetStock());
+
         }else{
-            echo json_encode(["Producto Ingresado" => "NO se encuentra y a sido agregado"]);
+
+            if(Producto::AgregarJSON($aux) == 0)
+            {
+                echo json_encode(["Ingresado" => "Nuevo producto ingresado"]);
+            }else{
+                echo json_encode(["ERROR" => "no se pudo hacer"]);
+            }
         }
-
-
-
-
     }else{
         echo json_encode(["ERROR" => "Falta rellenar informacion"]);
     }
@@ -31,18 +35,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
  */
 function VerificarProducto(Producto $nuevoProducto)
 {
-    $arrayProductos = Producto::LeerJSON('listaProductos.json');
+    $arrayProductos = Producto::LeerJSON('listaProducto.json');
 
     if($arrayProductos != null)
     {
         foreach($arrayProductos as $producto)
         {
-            if($producto['_nombre'] == $nuevoProducto->GetNombre() && $producto['_tipo'] == $nuevoProducto->GetTipo())
+            if($producto->GetNombre() == $nuevoProducto->GetNombre() && $producto->GetCodigo() == $nuevoProducto->GetCodigo())
             {
                 return true;
             }
         }
-
+        
     }else{
         echo json_encode(["ERROR" => "No hay productos en la lista..."]);
     }

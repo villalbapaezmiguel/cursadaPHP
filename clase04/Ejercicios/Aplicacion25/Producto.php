@@ -14,8 +14,9 @@ class Producto implements JsonSerializable{
         $this->_codigo = $codigo;
         $this->_nombre = $nombre;
         $this->_tipo = $tipo;
-        $this->stock = $stock;
+        $this->_stock = $stock;
         $this->_precio = $precio;
+        $this->_id  = $this->GenerarId();
     }
 
     public static function GenerarId()
@@ -23,6 +24,10 @@ class Producto implements JsonSerializable{
         return random_int(1,10000);
     }
 
+    public function GetCodigo()
+    {
+        return $this->_codigo;
+    }
     public function GetNombre()
     {
         $aux = $this->_nombre;
@@ -38,6 +43,12 @@ class Producto implements JsonSerializable{
         $aux = $this->_stock;
         return $aux;
     }
+
+    public function SetStock($nuevoStock)
+    {
+        $this->_stock = $nuevoStock;
+    }
+
     public function GetPrecio()
     {
         $aux = $this->_precio;
@@ -51,7 +62,7 @@ class Producto implements JsonSerializable{
     }
 
 
-public static function AgregarJSON(Producto $nuevoProducto)
+    public static function AgregarJSON(Producto $nuevoProducto)
     {
         $exito = -1;
         $archivo = "listaProducto.json";
@@ -99,7 +110,7 @@ public static function AgregarJSON(Producto $nuevoProducto)
                 {
                     $nuevoProducto = new Producto(
                         $producto['_codigo'],
-                        $producto['nombre'],
+                        $producto['_nombre'],
                         $producto['_tipo'],
                         $producto['_stock'],
                         $producto['_precio'],
@@ -114,6 +125,35 @@ public static function AgregarJSON(Producto $nuevoProducto)
             echo json_encode(["ERROR" => "Esta ruta no existe.."]);
         }
         return $arrayProductos;
+    }
+
+    public static function GuardarJSON($array , $rutaJSON)
+    {
+        $jsonActualizado = json_encode($array, JSON_PRETTY_PRINT);
+        file_put_contents($rutaJSON, $jsonActualizado);
+        return 0;
+    }
+
+
+
+    public static function ModificarStockProducto($ruta , $codigo , $nuevoStock)
+    {
+        $array = Producto::LeerJSON($ruta);
+
+        foreach($array as $producto)
+        {
+            if($producto->GetCodigo() == $codigo)
+            {
+                $producto->SetStock($nuevoStock + $producto->GetStock());
+                break;
+            }
+        }
+        if(Producto::GuardarJSON($array , $ruta) == 0)
+        {
+            return 0;
+        }
+    
+        return -1;
     }
 
 
